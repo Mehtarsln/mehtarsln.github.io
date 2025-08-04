@@ -10,7 +10,6 @@ body {
 .font-russo {
   font-family: 'Russo One', sans-serif;
 }
-
 /* Butonlar */
 button,
 .btn {
@@ -45,7 +44,19 @@ textarea:focus {
   border-color: #2563eb; /* blue-600 */
   outline: none;
 }
+/* Özel focus animasyonu */
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #f3f3f5; 
+  box-shadow: 0 0 8px rgba(242, 238, 238, 0.7);
+  transform: scale(1.03);
+  transition: all 0.3s ease;
+}
 
+/* Geçiş efektini daha yumuşak yap */
+input, textarea {
+  transition: all 0.3s ease;
+}
 /* Bölüm Başlıkları */
 h2 {
   font-size: 1.75rem;
@@ -53,10 +64,26 @@ h2 {
   color: #1e3a8a; /* blue-900 */
 }
 
-/* Bildirim Kutusu */
 #basvuru-bildirim {
-  animation: slideDown 0.5s ease-out;
+  position: fixed;       /* Ekranda sabit kalması için */
+  top: 20px;             /* Yukarıdan boşluk */
+  right: 20px;           /* Sağdan boşluk */
+  background-color: #2563eb; /* Mavi arka plan */
+  color: white;          /* Yazı rengi */
+  padding: 12px 20px;    /* İç boşluk */
+  border-radius: 8px;    /* Köşeler yuvarlak */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 0;            /* Başlangıçta görünmez */
+  pointer-events: none;  /* Tıklanmaz */
+  transition: opacity 0.5s ease;
   font-weight: 500;
+  z-index: 1000;         /* Üstte görünmesi için */
+}
+
+/* Görünür hale getirmek için opacity 1 */
+#basvuru-bildirim.opacity-100 {
+  opacity: 1;
+  pointer-events: auto;  /* Tıklanabilir */
 }
 
 @keyframes slideDown {

@@ -10,11 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js" defer></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Dönen daireler -->
+ <!-- Dönen daireler -->
   <div id="background-circles">
   <div class="circle cir1"></div>
   <div class="circle cir2"></div>
@@ -30,19 +32,6 @@
   <div class="circle cir12"></div>
 </div>
 
-
-  <!--  
-  <div style="position:fixed; inset:0; z-index:-1; pointer-events:none;">
-    <svg width="100vw" height="100vh" viewBox="0 0 1440 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#2563eb" fill-opacity="0.13" d="M0,160L1440,320L1440,0L0,0Z"></path>
-      <path fill="#f97316" fill-opacity="0.11" d="M0,400L1440,200L1440,500L0,500Z"></path>
-    </svg>
-  </div>
-  <div style="position:fixed; inset:0; z-index:-1; pointer-events:none;">
-    <div style="position:absolute; width:300px; height:300px; background:#2563eb; border-radius:50%; filter:blur(100px); left:10vw; top:10vh; opacity:0.28;"></div>
-    <div style="position:absolute; width:200px; height:200px; background:#f97316; border-radius:50%; filter:blur(80px); right:10vw; bottom:20vh; opacity:0.25;"></div>
-  </div>
--->
   <!-- Mavi Çubuk -->
   <div class="h-[35px] bg-blue-900"></div>
 
@@ -54,9 +43,27 @@
   </header>
   <header class="bg-white shadow-xl h-[3px]"></header>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bildirim = document.getElementById("basvuru-bildirim");
+    const buton = document.getElementById("test-button");
+
+    buton.addEventListener("click", () => {
+      bildirim.classList.remove("hidden");
+      bildirim.classList.add("opacity-100");
+
+      setTimeout(() => {
+        bildirim.classList.remove("opacity-100");
+        setTimeout(() => {
+          bildirim.classList.add("hidden");
+        }, 500);
+      }, 3000);
+    });
+  });
+</script>
   <!-- Başvuru bildirimi -->
   <div id="basvuru-bildirim" class="hidden opacity-0 transition-opacity duration-500 ease-in-out mb-4 p-4 bg-orange-400 border border-orange-400 text-blue-900 rounded-lg" role="alert" aria-live="polite" aria-atomic="true">
-    Başvurunuz başarıyla alındı.
+    Başvurunuz  alındı.
   </div>
 
   <!-- ANA FLEX CONTAINER BAŞLANGICI -->
@@ -65,8 +72,8 @@
     <!-- İş Başvuru Formu - Sol -->
     <section class="bg-white p-6 rounded-xl shadow-md flex-1 min-w-[350px] max-w-[540px] mx-auto lg:mx-0" aria-labelledby="basvuru-baslik">
       <h2 id="basvuru-baslik" class="text-2xl font-bold mb-4" style="color: #1e3a8a;"> İş Başvuru Formu</h2>
-      <form id="basvuru-form" class="grid grid-cols-1 md:grid-cols-2 gap-4" novalidate>
-        <label for="basvuru-adsoyad" class="sr-only">Ad Soyad</label>
+      <form id="basvuru-form" class="grid grid-cols-1 md:grid-cols-2 gap-4" >
+        <label for="basvuru-adsoyad"  class="sr-only">Ad Soyad</label>
         <input id="basvuru-adsoyad" type="text" placeholder="Ad Soyad" class="w-full p-3 border rounded-md" required />
 
         <label for="basvuru-eposta" class="sr-only">E-posta</label>
@@ -80,7 +87,6 @@
           <option value="">Cinsiyet Seçin</option>
           <option value="erkek">Erkek</option>
           <option value="kadin">Kadın</option>
-          <option value="belirtmek-istemiyorum">Belirtmek İstemiyorum</option>
         </select>
 
         <label for="basvuru-pozisyon" class="sr-only">Başvurmak İstediğiniz Alan</label>
@@ -114,7 +120,7 @@
   <section class="bg-white p-6 rounded-xl shadow-md flex-1 min-w-[350px] max-w-[650px] mx-auto lg:mx-0 space-y-6" aria-labelledby="cv-baslik">
   <h2 id="cv-baslik" class="text-2xl font-bold mb-4" style="color: #1e3a8a;">CV Oluşturma</h2>
 
-  <div id="template-selector" class="flex justify-center gap-4 my-4">
+   <div id="template-selector" class="flex justify-center gap-4 my-4">
     <div id="tpl1-card"  class="tpl-card w-24 h-auto cursor-pointer border rounded-md overflow-hidden transition-all hover:scale-105">
       <img src="img/CV1.png" class="w-full h-auto" alt="Şablon 1" />
     </div>
@@ -184,5 +190,6 @@
       </div>
     </div>
   </footer>
+  <script src="script.js" ></script>
 </body>
 </html>
